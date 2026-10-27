@@ -41,14 +41,34 @@ h1 em { font-weight: 400; color: var(--accent); }
 .face { font-family: Georgia, serif; font-size: 1.3em; line-height: 1; }
 .yes-button { font-size: clamp(20px, 1.85vw, 30px); }
 .yes-button svg { flex-shrink: 0; }
-.no-button { z-index: 5; }
-.no-button.escaped { position: fixed; z-index: 20; min-height: 0; background: #fff6ef; box-shadow: 0 7px 24px #9b665024, inset 0 0 0 1.5px #dfb7aa; transition: left .32s cubic-bezier(.2,.8,.2,1), top .32s cubic-bezier(.2,.8,.2,1), background .2s; }
-.no-button.pig-button { padding: 0; background: transparent; box-shadow: none; border-radius: 50%; }
-.no-button.pig-button:hover { background: transparent; }
-.runaway-pig { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 6px 7px #b9806b18); animation: pig-appear .25s ease-out; }
-.pig-leg { transform-box: fill-box; transform-origin: top center; }
-.running .leg-front { animation: pig-gallop .18s ease-in-out infinite alternate; }
-.running .leg-back { animation: pig-gallop .18s ease-in-out infinite alternate-reverse; }
+.no-button { position: relative; z-index: 5; overflow: visible; }
+.no-button.escaped { position: fixed; z-index: 20; min-height: 0; padding: 0; transition: left .5s cubic-bezier(.3,.05,.2,1), top .5s cubic-bezier(.3,.05,.2,1), width .5s ease-in-out, height .5s ease-in-out, background-color .4s, box-shadow .4s; }
+.no-button.transforming { transition: background-color .4s, box-shadow .4s; }
+.no-button.pig-button { background-color: #f5b9c5; color: #824855; box-shadow: inset 0 0 0 1.5px #d88fa3, inset 0 10px 22px #ffe5e775, 0 8px 22px #b9806b22; }
+.no-button.pig-button:hover { background-color: #f5b9c5; }
+.no-label { position: relative; z-index: 2; transition: transform .4s ease; }
+.pig-button .no-label { transform: translateX(clamp(20px, 2.5vw, 36px)); }
+.runaway-pig { position: absolute; inset: 0; pointer-events: none; }
+.pig-part { position: absolute; opacity: 0; transform: scale(0); transition: transform .38s cubic-bezier(.2,.8,.3,1.3), opacity .2s; }
+.pig-button .pig-part { opacity: 1; transform: scale(1); }
+.pig-ear { width: 26px; height: 32px; top: -23px; background: #f5b9c5; border: 1.5px solid #d88fa3; border-radius: 75% 15% 50% 20%; transform-origin: bottom center; }
+.pig-ear::after { content: ''; position: absolute; inset: 7px 6px 5px; border-radius: inherit; background: #e899af; }
+.ear-left { left: 15%; rotate: -18deg; }
+.ear-right { right: 15%; rotate: 18deg; scale: -1 1; }
+.pig-leg { width: 14px; height: 22px; bottom: -16px; left: 16%; transform-origin: top center; transition-delay: .07s; }
+.pig-leg i { display: block; width: 100%; height: 100%; border-radius: 0 0 6px 6px; background: #eaa2b6; border-bottom: 5px solid #b97b91; transform-origin: top center; }
+.pig-leg.leg-front { left: 29%; }
+.pig-leg.leg-right { left: auto; right: 29%; }
+.pig-leg.leg-front.leg-right { right: 16%; }
+.pig-tail { width: 27px; height: 29px; right: -18px; top: 37%; color: #dc90a6; transform-origin: left center; transition-delay: .1s; }
+.pig-face { left: 12%; top: calc(50% - 20px); width: 42px; height: 40px; transition-delay: .05s; }
+.pig-eyes::before, .pig-eyes::after { content: ''; position: absolute; top: 0; width: 5px; height: 7px; border-radius: 50%; background: #74414f; }
+.pig-eyes::before { left: 8px; } .pig-eyes::after { right: 8px; }
+.pig-snout { position: absolute; left: 2px; bottom: 1px; width: 38px; height: 26px; border-radius: 48%; background: #efa0b5; border: 1px solid #d88b9f; box-shadow: inset 0 3px 5px #ffdce560; }
+.pig-snout::before, .pig-snout::after { content: ''; position: absolute; top: 8px; width: 4px; height: 7px; border-radius: 50%; background: #b56d85; }
+.pig-snout::before { left: 10px; } .pig-snout::after { right: 10px; }
+.running .leg-front i { animation: pig-gallop .14s ease-in-out infinite alternate; }
+.running .leg-back i { animation: pig-gallop .14s ease-in-out infinite alternate-reverse; }
 .no-button:disabled { cursor: default; }
 .no-button.popping { animation: balloon-pop .35s ease-in forwards; pointer-events: none; }
 .only-yes { grid-template-columns: 1fr; }
@@ -81,7 +101,6 @@ h1 em { font-weight: 400; color: var(--accent); }
 .scene-fallback > span { display: none; }
 
 @keyframes balloon-pop { 0% { transform: scale(1); opacity: 1; } 55% { transform: scale(1.16, 1.24); opacity: 1; border-radius: 45%; } 100% { transform: scale(1.3); opacity: 0; } }
-@keyframes pig-appear { from { opacity: .5; transform: scale(.75); } to { opacity: 1; transform: scale(1); } }
 @keyframes pig-gallop { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
 @keyframes balloon-fragment { 0% { opacity: 1; transform: rotate(var(--angle)) translateX(5px) scale(1); } 100% { opacity: 0; transform: rotate(var(--angle)) translateX(var(--distance)) scale(.2); } }
 @keyframes balloon-ring { from { opacity: .8; transform: scale(.4); } to { opacity: 0; transform: scale(2.5); } }
