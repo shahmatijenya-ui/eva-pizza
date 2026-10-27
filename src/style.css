@@ -14,6 +14,8 @@ button:focus-visible { outline: 3px solid #994956; outline-offset: 5px; }
 h1, p { margin: 0; }
 
 .stage {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100vh;
   height: 100dvh;

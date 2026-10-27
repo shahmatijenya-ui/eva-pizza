@@ -2,6 +2,7 @@
   import { onDestroy, tick } from 'svelte';
   import { fade } from 'svelte/transition';
   import Scene from './Scene.svelte';
+  import Ambient from './Ambient.svelte';
   import { sound } from './sound.js';
 
   const addresses = { from: 'ул. Багратиона, 51', to: 'ул. Вашникрадского, 21' };
@@ -131,6 +132,8 @@
 {#snippet heart()}
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 4.8a5.4 5.4 0 0 0-7.6 0l-.9.9-.9-.9a5.4 5.4 0 0 0-7.6 7.6L12 21l8.5-8.6a5.4 5.4 0 0 0 0-7.6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
 {/snippet}
+
+<Ambient />
 
 <main class="stage" class:finale={step === 3} inert={Boolean(response)}>
   <div class="pig-panel"><Scene /></div>
