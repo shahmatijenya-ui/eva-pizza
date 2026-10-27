@@ -47,6 +47,10 @@ export function setAudioEnabled(enabled) {
 
 export async function wakeAudio() {
   try {
+    // Safari can otherwise keep Web Audio on the channel muted by the silent switch.
+    try {
+      if (globalThis.navigator?.audioSession) globalThis.navigator.audioSession.type = 'playback';
+    } catch { /* Other browsers use their normal audio routing. */ }
     // Keep creation, the silent unlock, and resume inside the original gesture.
     if (!context || context.state === 'closed') {
       const AudioContext = globalThis.AudioContext || globalThis.webkitAudioContext;
